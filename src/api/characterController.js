@@ -25,8 +25,7 @@ async function createMyCharacter(req, res, next) {
     if (characterInfo !== null) {
       const className = characterInfo.ArmoryProfile.CharacterClassName;
       const itemLevel = characterInfo.ArmoryProfile.ItemMaxLevel;
-      await dao.createMyCharacter(name, className, itemLevel);
-      return { name, className, itemLevel }
+      return await dao.createMyCharacter(name, className, itemLevel);
     } else {
       return null;
     }

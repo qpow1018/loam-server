@@ -14,7 +14,7 @@ class CharacterDAO {
   }
 
   async createMyCharacter(name, className, itemLevel) {
-    await Character.create({
+    return await Character.create({
       name,
       className,
       itemLevel
