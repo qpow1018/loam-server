@@ -6,16 +6,18 @@ const Character = require('./model');
 class CharacterDAO {
   async getMyCharacters() {
     const resData = await Character
-                            .findAll()
+                            .find()
                             .sort({ 'createdAt': -1 })
                             .lean();
 
     return resData;
   }
 
-  async createMyCharacter(name) {
+  async createMyCharacter(name, className, itemLevel) {
     await Character.create({
-      name
+      name,
+      className,
+      itemLevel
     });
   }
 

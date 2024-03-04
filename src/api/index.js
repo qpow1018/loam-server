@@ -3,7 +3,7 @@ const express = require('express');
 const { ERROR_CODE, createAppError } = require('../libs');
 
 const characterController = require('./characterController');
-const userController = require('./userController');
+// const userController = require('./userController');
 
 function initApi(app) {
   characterController(app);

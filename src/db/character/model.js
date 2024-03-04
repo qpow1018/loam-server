@@ -6,21 +6,21 @@ const CharacterSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
     },
-    originPrice: {
-      type: Number,
-      required: true
+    className: {
+      type: String,
+      required: true,
     },
-    discountRate: {
-      type: Number,
-      default: null
+    itemLevel: {
+      type: String,
+      required: true,
     },
-    // descriptions: [{
+    // userId: {
     //   type: mongoose.Schema.Types.ObjectId,
     //   required: true,
-    //   ref: ModelName.file
-    // }],
+    //   ref: ModelName.user,
+    // },
   },
   {
     timestamps: true,

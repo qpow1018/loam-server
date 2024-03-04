@@ -1,15 +1,19 @@
 const { api, auth, checker } = require('../libs');
 const dao = require('../db/character/characterDAO');
+const lostark = require('../externalApi/lostark');
 
 module.exports = (app) => {
-  app.get   ('/api/my-character', getMyCharacters);
+  app.get   ('/api/my-characters', getMyCharacters);
   app.post  ('/api/my-character', createMyCharacter);
 }
 
 // TODO auth 추가
 async function getMyCharacters(req, res, next) {
   await api.defaultProcess(req, res, next, async () => {
-    return await dao.getMyCharacters(category, search);
+
+    checker.checkRequiredStringParams(123);
+
+    return await dao.getMyCharacters();
   });
 }
 
@@ -19,7 +23,13 @@ async function createMyCharacter(req, res, next) {
 
     checker.checkRequiredStringParams(name);
 
-    await dao.createMyCharacter(name);
+    const characterInfo = await lostark.getCharacterInfo(name);
+
+    await dao.createMyCharacter(
+      name,
+      characterInfo.ArmoryProfile.CharacterClassName,
+      characterInfo.ArmoryProfile.ItemMaxLevel,
+    );
   });
 }
 
