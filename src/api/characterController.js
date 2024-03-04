@@ -10,9 +10,6 @@ module.exports = (app) => {
 // TODO auth 추가
 async function getMyCharacters(req, res, next) {
   await api.defaultProcess(req, res, next, async () => {
-
-    checker.checkRequiredStringParams(123);
-
     return await dao.getMyCharacters();
   });
 }
@@ -25,14 +22,16 @@ async function createMyCharacter(req, res, next) {
 
     const characterInfo = await lostark.getCharacterInfo(name);
 
-    await dao.createMyCharacter(
-      name,
-      characterInfo.ArmoryProfile.CharacterClassName,
-      characterInfo.ArmoryProfile.ItemMaxLevel,
-    );
+    if (characterInfo !== null) {
+      const className = characterInfo.ArmoryProfile.CharacterClassName;
+      const itemLevel = characterInfo.ArmoryProfile.ItemMaxLevel;
+      await dao.createMyCharacter(name, className, itemLevel);
+      return { name, className, itemLevel }
+    } else {
+      return null;
+    }
   });
 }
-
 
 
 // async function updateProduct(req, res, next) {
